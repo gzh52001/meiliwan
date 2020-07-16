@@ -25,6 +25,14 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
+const postcssAspectRatioMini = require('postcss-aspect-ratio-mini');
+const postcssPxToViewport = require('postcss-px-to-viewport');
+const postcssWriteSvg = require('postcss-write-svg');
+const postcssCssnext = require('postcss-cssnext');
+const postcssViewportUnits = require('postcss-viewport-units');
+const cssnano = require('cssnano');
+const postcssPresetEnv = require('postcss-preset-env');
+
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -100,10 +108,35 @@ module.exports = function(webpackEnv) {
               },
               stage: 3,
             }),
+            postcssNormalize({}),
+            
+            postcssAspectRatioMini({}),
+            postcssPxToViewport({
+                viewportWidth: 750, // (Number) The width of the viewport.
+                viewportHeight: 1334, // (Number) The height of the viewport.
+                unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
+                viewportUnit: 'vw', // (String) Expected units.
+                selectorBlackList: ['.ignore', '.hairlines', '.list-row-bottom-line', '.list-row-top-line'], // (Array) The selectors to ignore and leave as px.
+                minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
+                mediaQuery: false // (Boolean) Allow px to be converted in media queries.
+            }),
+            postcssWriteSvg({
+                utf8: false
+            }),
+            postcssPresetEnv({}),
+            // postcssViewportUnits({
+            //  filterRule: rule => rule.selector.indexOf('::after') === -1 && rule.selector.indexOf('::before') === -1 && rule.selector.indexOf(':after') === -1 && rule.selector.indexOf(':before') === -1
+            // }),
+            postcssViewportUnits({}),
+            cssnano({
+                "cssnano-preset-advanced": {
+                    zindex: false,
+                    autoprefixer: false
+                },
+            })
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.
-            postcssNormalize(),
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
