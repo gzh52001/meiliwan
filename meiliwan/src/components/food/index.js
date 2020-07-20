@@ -4,7 +4,6 @@ import {withUser} from '../../utils/hoc';
 
 class Food extends React.Component{
     render(){
-        
         return (
             <div className = "food">
                 <div className = "box">
