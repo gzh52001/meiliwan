@@ -15,7 +15,7 @@
             flag: false
         }
 
-用户部分url：
+用户部分：
 	http://10.3.141.65:2020/user
 	
  	验证接口：
@@ -61,11 +61,86 @@
         返回参数：
             result:true/false
 
-
-
 产品部分：
     http://10.3.141.65:2020/goods
+    
+    添加商品信息：
+        post
+        /goodinfo
+        请求参数：
+            {
+                good_id,        商品id      number
+                good_name,      商品名      string
+                good_size,      款式        string
+                good_price,     单价        number
+                good_img,       图片        string
+                good_stock,     库存        number
+            }
+            
+        返回参数：
+            result:true/false
+            
+    查询指定商品详情信息：
+        get
+        /goodinfo/:good_id
+        请求参数：good_id   商品id      number
 
-
+    查询所有商品详情信息：
+        get
+        /goodinfo
+        请求参数：无
+        返回参数：
+            [
+                {
+                    good_id,        商品id      number
+                    good_name,      商品名      string
+                    good_size,      款式        string
+                    good_price,     单价        number
+                    good_img,       图片        string
+                    good_stock,     库存        number
+                }
+            ]
+            
 购物车部分：
     http://10.3.141.65:2020/cart
+
+    购物车添加商品:
+        post
+        /cartinfo
+        请求参数：
+            {
+                user_id,        用户id      number
+                good_id,        商品id      number
+                good_name,      商品名      string
+                good_size,      款式        string
+                good_price,     单价        number
+                good_img,       图片        string
+                good_num,       商品数量    number
+                good_stock,     库存        number
+            }
+        返回参数：
+            result:true/false
+
+    查询指定用户的购物车详情信息:
+        get
+        /cartinfo/:user_id
+        请求参数：user_id       用户id      number
+        返回参数：
+            {
+                user_id,        用户id      number
+                good_id,        商品id      number
+                good_name,      商品名      string
+                good_size,      款式        string
+                good_price,     单价        number
+                good_img,       图片        string
+                good_num,       商品数量    number
+                good_stock,     库存        number
+            }
+
+    修改购物车商品数量:
+        put
+        /cartinfo
+        请求参数：
+            user_id         用户id      number
+            good_id         商品id      number
+            good_num        商品数量    number
