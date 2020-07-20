@@ -53,6 +53,13 @@
         返回参数：
             result:用户信息
 
+    修改信息接口：（目前只有按id修改名字）
+        put
+        /uinfo/personal
+        请求参数：
+            用户所有信息
+        返回参数：
+            result:true/false
 
 
 
