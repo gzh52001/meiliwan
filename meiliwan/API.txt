@@ -1,0 +1,23 @@
+用户部分url：
+	http://10.3.141.65:2020/user
+	
+ 	验证接口：
+		get
+		/uinfo/regcheck/:user_name
+		参数：user_name 用户名
+
+	注册接口：
+		post
+		/uinfo/reg
+		参数：
+            user_id     用户id
+            user_name   用户名
+            user_psw    用户密码
+            user_token  用户token
+
+	登录接口：
+		post
+		/uinfo/login
+		参数：
+            user_name   用户名
+            user_psw    用户密码
