@@ -1,12 +1,15 @@
 import React from 'react';
 
 import {withUser} from '../../utils/hoc';
+
+
 class Mine extends React.Component{
     render(){
         return (
             <div>
-                Mine
+              mine
             </div>
+           
         )
     }
 }
