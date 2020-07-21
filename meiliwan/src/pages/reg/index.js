@@ -23,7 +23,8 @@ class Reg extends React.Component{
 						
 					
 								<div className="field phone">
-									<input type="text" id="mobile_phone" name="mobile_phone" placeholder="手机号" className="c-form-txt-normal" />
+									<input type="text" id="mobile_phone" name="mobile_phone" placeholder="手机号" className="c-form-txt-normal" 
+									/>
 									<div className="tips">
 										<span id="mobile_phone_notice"></span>
 									</div>
