@@ -62,5 +62,21 @@ export default {
                 uid
             }
         })
+    },
+    // 获取推荐商品
+    gethotgoods() {
+        return request({
+            method:'get',
+            url:'/good/gethotgoods'
+        })
+    },
+    // 获取新品商品
+    // 获取热销商品
+    // 获取全部商品
+    getgood() {
+        return request({
+            method:'get',
+            url:'/good/getgood'
+        })
     }
 }

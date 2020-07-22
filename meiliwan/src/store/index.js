@@ -60,7 +60,7 @@ detail.getCarGoods(uid).then(res => {
                 type: 'add_to_cart',
                 goods: {
                     Id: goodsd.Id,
-                    iCheck: false,
+                    iCheck: 0,
                     iCurrPrice: goodsd.iCurrPrice,
                     iGoodsId: goodsd.iGoodsId,
                     iTotal: goodsd.iTotal,
@@ -124,21 +124,24 @@ function reducer(state = initState, action) {
                 ...state,
                 cartlist: []
             }
-        // 选中商品，以及反向判断是否满足全选条件
+        // 选中商品,单选
         case 'select_cart':
-            console.log(5555)
+            // console.log(5555)
             return {
                 ...state,
                 cartlist: state.cartlist.map(item => {
                     if (item.iGoodsId == action.iGoodsId) {
-                        item.iCheck = !item.iCheck
+                        item.iCheck= !item.iCheck
                     }
+                    console.log('改变ture的值',item.iCheck)
+                    console.log('当前item的值',item)
                     return item;
+                    
                 })
             }
         // 全选按钮的效果
         case 'all_select_cart':
-            console.log(6666)
+            // console.log(6666)
             return {
                 ...state,
                 cartlist: state.cartlist.map(item => {

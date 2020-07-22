@@ -25,6 +25,27 @@ class Cart extends React.Component {
     // 请求数据
     componentDidMount() {
         // 获取购物车的信息
+
+        // 获取推荐商品
+        detail.getCarGoods_roud().then(res => {
+            console.log(res)
+            let p = res.data;
+            console.log(p);
+            if (p.code == 200) {
+                // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
+                console.log("请求成功")
+                console.log(p.data.p[0].sDetailImg.split(",")[0])
+                // // 新品
+                let goods = p.data.p
+                // // 热销
+                this.setState({
+                   goods
+                })
+                console.log(goods)
+            } else {
+                console.log("网络出错了，请稍后重试！！")
+            }
+        })
         //  判断是否满足全选条件
         this.check_all();
         // 计算总价，判断是否全选
@@ -127,16 +148,16 @@ class Cart extends React.Component {
     totalPrice() {
         // 遍历
         let p = 0.00;
-        console.log(666666)
-        console.log("11111",this.props.cartlist)
+        // console.log(666666)
+        // console.log("11111",this.props.cartlist)
         this.props.cartlist.filter(item => {
             if (item.iCheck) {
                 p = p + (item.iTotal * item.iCurrPrice);
-                console.log('里面的PPP',p)
+                // console.log('里面的PPP',p)
             }
             return p;
         })
-        console.log("22222",this.props.cartlist)
+        // console.log("22222",this.props.cartlist)
         console.log(p)
         this.setState({
             totalPrice: p.toFixed(2)
@@ -236,7 +257,7 @@ class Cart extends React.Component {
                                             <div className="order-good">
                                                 <div className="good-item">
                                                     <a className="btn-check">
-                                                        <i className={item.iCheck ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.onSelect.bind(this, item.iGoodsId)}></i>
+                                                        <i className={item.iCheck !== 0  ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.onSelect.bind(this, item.iGoodsId)}></i>
                                                     </a>
                                                     <a className="good-img">
                                                         <img src={item.sProfileImg} lazy="loaded" />
@@ -330,10 +351,10 @@ class Cart extends React.Component {
                         <ul className="goods-list">
                             {
                                 this.state.goods.map(item => (
-                                    <li key={item.iMallId}>
-                                        <a href={`/lol/detail/${item.iMallId}`} className="list-link">
+                                    <li key={item.iGoodsId}>
+                                        <a href={`/detail/`+item.iGoodsId} className="list-link">
                                             <div className="list-img">
-                                                <img src={item.sProfileImg} lazy="loaded" />
+                                                <img src={item.sDetailImg.split(",")[0]} lazy="loaded" />
                                             </div>
                                             <div className="list-bd">
                                                 <div className="name">

@@ -3,11 +3,11 @@ import React from 'react'
 import '../../utils/flexible'
 import './detail.scss'
 import { Carousel } from 'antd';
-import { Modal, Button } from 'antd';
+// import { Modal, Button } from 'antd';
 import { Input } from 'antd';
-import { message } from 'antd';
-import http from '../../utils/http';
-import store from '../../store/index';
+// import { message } from 'antd';
+// import http from '../../utils/http';
+// import store from '../../store/index';
 import { connect } from 'react-redux'
 import detail from '../../api/detail';
 
@@ -52,6 +52,7 @@ class Detail extends React.Component {
         detail.getgoods(id).then(res=>{
             let p=res.data;
             if (p.code == 200) {
+                console.log(p.data.sDetailImg)
                 p.data.sDetailImg=p.data.sDetailImg.split(",")
                 p.data.sProfileImg=p.data.sProfileImg.split(",")
                 this.setState({
