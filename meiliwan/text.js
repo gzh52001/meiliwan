@@ -231,8 +231,8 @@ post
     
 查询指定商品详情信息：
 get
-/goodinfo/:good_id
-请求参数：good_id   商品id      string
+/goodlist/:id
+请求参数：id   商品id      string
 返回参数：
 "code": 200,     状态码     number
 "data": {           商品信息      Object

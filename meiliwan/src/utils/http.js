@@ -2,7 +2,7 @@
  * 封装ajax请求
  * fetch(url,options)
  */
-const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://aoxie.com'
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3099' : 'http://aoxie.com'
 
 export async function request(url, data = {}, options = {}) {
     url = baseUrl + url;
@@ -12,18 +12,19 @@ export async function request(url, data = {}, options = {}) {
     if (options.method === 'get' || options.get === undefined) {
         const params = []
         for (const key in data) {
-            params.push(`${key}=${data[key]}`)
+            // params.push(`${key}=${data[key]}`)
+            params.push(`${data[key]}`)
         }
-        url = url + (url.includes('?') ? '&' : '?') + params.join('&')
+        // url = url + (url.includes('?') ? '&' : '?') + params.join('&')
+        url = url + params.join('')
     } else if (['post', 'put', 'patch'].includes(options.method)) {
         data = JSON.stringify(data);
         options.headers['content-type'] = 'application/json';
     }
-
+    console.log("985555",url)
     return await fetch(url, {
         ...options,
         data,
-        
     }).then(res => res.json());
     
 }

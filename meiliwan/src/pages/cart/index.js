@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import '../../utils/flexible'
 import './cart.scss'
 import { Input, InputNumber } from 'antd';
+import detail from '../../api/detail';
 class Cart extends React.Component {
     constructor() {
         super()
@@ -22,103 +23,64 @@ class Cart extends React.Component {
         this.UnSelectAll = this.UnSelectAll.bind(this)
     }
     // 请求数据
-    async componentDidMount() {
+    componentDidMount() {
         // 获取购物车的信息
         //  判断是否满足全选条件
-     this.check_all();
-        // let data = await http.get('/db/cartlist.json');
-        // if (data.code == "200") {
-        //     // console.log("购物车请求成功~~~~",data)
-        //     if (data.list.length === 0 || data.list == '') {
-        //         this.setState({
-        //             goodsList: true
-        //         })
-        //     }
-        //     this.setState({
-        //         goodsList: data.list
-        //     })
-        // } else {
-        //     console.log("购物车请求失败")
-        // }
-        // console.log(this.state.goodsList)
-        // 获取推荐商品信息
-        let p = await http.get('/db/tuijian.json');
-        if (p.code == "200") {
-            console.log("请求成功")
-            this.setState({
-                goods: p.data
-            })
-        } else {
-            console.log("请求失败")
-        }
+        this.check_all();
         // 计算总价，判断是否全选
-        this.onSelect()
-        this.totalPrice()
+        // this.onSelect()
+        // this.totalPrice()
     }
 
     // 修改商品数量
     onChangeCount(iGoodsId, e) {
-        let count = parseInt(e.target.value)
-        console.log(count)
+        let iTotal = parseInt(e.target.value)
+        console.log(iTotal)
+        if (iTotal == '' || iTotal == "NaN") {
+            iTotal = 1
+        }
         const { dispatch } = this.props;
         dispatch({
             type: 'change_qty',
             iGoodsId,
-            iTotal: count
+            iTotal
         })
-        // this.state.goodsList.map(item => {
-        //     if (item.iGoodsId == iGoodsId) {
-        //         item.iTotal = count
-        //     }
-        // })
-        // this.setState({
-
-        // })
         this.totalPrice()
     }
     // 判断是否显示删除选项
     onEdit(iGoodsId) {
-        // 当数组中元素是值类型，map不会改变原数组；当是引用类型，则可以改变原数组
-        // console.log(iGoodsId)
-        // console.log(this.state.goodsList)
-        // let newGoodsList = this.props.cartlist.map(item => {
-        //     if (item.iGoodsId == iGoodsId) {
-        //         item.isPromote = !item.isPromote
-        //     } else {
-        //         item.isPromote = true
-        //     }
-        //     return item
-        // })
-        // console.log(newGoodsList)
-        // this.setState({
-        //     goodsList: newGoodsList
-        // })
         this.props.dispatch({
-            type:'del_select_cart',
+            type: 'del_select_cart',
             iGoodsId
         })
     }
     // 删除商品
     onDel(iGoodsId) {
-        const { dispatch } = this.props;
-        dispatch({
-            type: 'remove_from_cart',
-            iGoodsId
+        detail.delgoods(iGoodsId).then(res => {
+            let p = res.data;
+            if (p.code == 200) {
+                const { dispatch } = this.props;
+                dispatch({
+                    type: 'remove_from_cart',
+                    iGoodsId
+                })
+            }
+            console.log(p);
         })
-        console.log("删除了")
     }
     //  判断是否满足全选条件
-    check_all(){
-        
+    check_all() {
         let p = this.props.cartlist.every(item => {
-            return item.iCheck == true
+            return item.iCheck === true
         })
         if (p) {
-            this.setState({
+            this.props.dispatch({
+                type: 'all_select_cart',
                 allSelect: true
             })
         } else {
-            this.setState({
+            this.props.dispatch({
+                type: 'all_select_cart',
                 allSelect: false
             })
         }
@@ -126,16 +88,13 @@ class Cart extends React.Component {
     // 选中商品
     onSelect(iGoodsId) {
         // 当数组中元素是值类型，map不会改变原数组；当是引用类型，则可以改变原数组
+        console.log(iGoodsId)
         this.props.dispatch({
-            type:'select_cart',
+            type: 'select_cart',
             iGoodsId
         })
-        // this.state.goodsList.map(item => {
-        //     if (item.iGoodsId == iGoodsId) {
-        //         item.iCheck = !item.iCheck;
-        //     }
-        // })
         this.check_all()
+        // this.UnSelectAll()
         this.totalPrice()
     }
     // 点击全选按钮的时候
@@ -147,16 +106,16 @@ class Cart extends React.Component {
         console.log(p)
         if (p) {
             this.props.dispatch({
-                type:'all_select_cart',
-                allchoose:false
+                type: 'all_select_cart',
+                allchoose: false
             })
             this.setState({
                 allSelect: false
             })
         } else {
             this.props.dispatch({
-                type:'all_select_cart',
-                allchoose:true
+                type: 'all_select_cart',
+                allchoose: true
             })
             this.setState({
                 allSelect: true
@@ -168,42 +127,52 @@ class Cart extends React.Component {
     totalPrice() {
         // 遍历
         let p = 0.00;
+        console.log(666666)
+        console.log("11111",this.props.cartlist)
         this.props.cartlist.filter(item => {
             if (item.iCheck) {
                 p = p + (item.iTotal * item.iCurrPrice);
+                console.log('里面的PPP',p)
             }
             return p;
         })
+        console.log("22222",this.props.cartlist)
+        console.log(p)
         this.setState({
             totalPrice: p.toFixed(2)
         })
+        // this.props.dispatch({
+        //     type:'all_price'
+        // })
+        // console.log(this.props.totalPrice);
     }
     // 点击减号，数量减少
     onMix(iGoodsId) {
-       
-        const currentGoods =this.props.cartlist.filter(item => item.iGoodsId == iGoodsId)[0];
-        if (currentGoods.iTotal <=1) {
-                           
+        const currentGoods = this.props.cartlist.filter(item => item.iGoodsId == iGoodsId)[0];
+        if (currentGoods.iTotal <= 1) {
             console.log("不能再少了")
-            currentGoods.iTotal=2
-        } 
+            currentGoods.iTotal = 1
+        }
 
         let iTotal = currentGoods.iTotal - 1
-        this.props.dispatch({
-            type:'change_qty',
-            iGoodsId,
-            iTotal
+
+        detail.changegoods(iGoodsId, iTotal).then(res => {
+            let p = res.data;
+            if (p.code == 200) {
+                this.props.dispatch({
+                    type: 'change_qty',
+                    iGoodsId,
+                    iTotal
+                })
+            } else {
+                console.log("网络出错了，请稍后重试！！")
+            }
         })
 
-        // this.state.goodsList.map(item => {
-        //     if (item.iGoodsId == iGoodsId) {
-        //         if (item.iTotal <= 1) {
-        //             item.iTotal = 1;
-        //             console.log("不能再少了")
-        //         } else {
-        //             item.iTotal = item.iTotal - 1;
-        //         }
-        //     }
+        // this.props.dispatch({
+        //     type: 'change_qty',
+        //     iGoodsId,
+        //     iTotal
         // })
         this.totalPrice()
 
@@ -211,17 +180,23 @@ class Cart extends React.Component {
     // 点击加号，数量添加
     onAdd(iGoodsId) {
         const currentGoods = this.props.cartlist.filter(item => item.iGoodsId == iGoodsId)[0];
-        let iTotal = currentGoods.iTotal -0+ 1
-        this.props.dispatch({
-            type:'change_qty',
-            iGoodsId,
-            iTotal
+        let iTotal = currentGoods.iTotal - 0 + 1
+        detail.changegoods(iGoodsId, iTotal).then(res => {
+            let p = res.data;
+            if (p.code == 200) {
+                this.props.dispatch({
+                    type: 'change_qty',
+                    iGoodsId,
+                    iTotal
+                })
+            } else {
+                console.log("网络出错了，请稍后重试！！")
+            }
         })
-        // this.state.goodsList.map(item => {
-        //     if (item.iGoodsId == iGoodsId) {
-        //         item.iTotal = item.iTotal - 0 + 1;
-        //         console.log("添加了")
-        //     }
+        // this.props.dispatch({
+        //     type: 'change_qty',
+        //     iGoodsId,
+        //     iTotal
         // })
         this.totalPrice()
     }
@@ -229,9 +204,6 @@ class Cart extends React.Component {
         console.log(this.props)
         // const { goodsList } = this.state;
         let goodsList = this.props.cartlist;
-        // console.log(goodsList)
-        // const { cartlist } = this.props;
-        // console.log(this.props.allSelect)
         return (
             <div style={{ height: "100%", background: "#fff" }}>
                 <section style={{ height: "100%" }}>

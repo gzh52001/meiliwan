@@ -9,30 +9,8 @@ import { message } from 'antd';
 import http from '../../utils/http';
 import store from '../../store/index';
 import { connect } from 'react-redux'
-// console.log("store",store);
-// const state=store.getState();
-// store.subscribe(function(){
-//     console.log("xiugai",JSON.stringify(store.getState()))
-// })
-// console.log("app.props11=",this.props)
-// console.log("store,state",state);
-// store.dispatch({
-//     type:'add_to_cart',
-//     goods:{
-//         "iCheck": true,
-//         "isPromote": true,
-//         "iGoodsId": "10086",
-//         "iTotal": "1",
-//         "iCurrPrice": 599.00,
-//         "sMallName": "源计划 艾瑞莉娅 中型雕塑",
-//         "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202006/20200611211952_44398.jpg"
-//     }
-// })
-// store.dispatch({
-//     type:'change_qty',
-//     iGoodsId:10086,
-//     goods_qty:10
-// })
+import detail from '../../api/detail';
+
 class Detail extends React.Component {
     constructor() {
         super();
@@ -65,23 +43,28 @@ class Detail extends React.Component {
         this.onMask = this.onMask.bind(this)
     }
     // 挂载前获取数据
-    async componentDidMount() {
+     componentDidMount() {
         // window.addEventListener('scroll', this.handleScroll.bind(this)) //监听滚动
         // 获取商品id
         const { match } = this.props;
         const { id } = match.params;
-        let p = await http.get('/db/detail.json', { goods_id: id })
-        if (p.code == 200) {
-            this.setState({
-                detail: p.data,
-                // 轮播图
-                sDetailImg: p.data.sDetailImg,
-                //商品图片
-                sProfileImg: p.data.sProfileImg,
-            })
-        } else {
-            console.log("网络出错了，请稍后重试！！")
-        }
+        console.log(match)
+        detail.getgoods(id).then(res=>{
+            let p=res.data;
+            if (p.code == 200) {
+                p.data.sDetailImg=p.data.sDetailImg.split(",")
+                p.data.sProfileImg=p.data.sProfileImg.split(",")
+                this.setState({
+                    detail: p.data,
+                    // 轮播图
+                    sDetailImg: p.data.sDetailImg,
+                    //商品图片
+                    sProfileImg: p.data.sProfileImg,
+                })
+            } else {
+                console.log("网络出错了，请稍后重试！！")
+            }
+        })
     }
     componentWillUnmount() { //一定要最后移除监听器，以防多个组件之间导致this的指向紊乱
         // window.removeEventListener('scroll', this.handleScroll.bind(this))
@@ -134,28 +117,12 @@ class Detail extends React.Component {
             visible: false,
         });
         // 不生效了
-        message.success('添加成功！', 2.5);
+        // message.success('添加成功！', 2.5);
 
         // 获取用户ID和商品ID，商品数量
-        const userId = localStorage.getItem('lol') || '';
-        const iGoodsId = this.state.detail.id;
+        console.log(this.state.detail)
+        let iGoodsId = this.state.detail.iGoodsId;
         let shopCount = this.state.count;
-        // console.log("用户名为：" + userId + "商品id为：" + shopId)
-        // 发送ajax，添加到购物车
-        // let res = await http.put('/db/cart.json', {
-        //     userId: userId,
-        //     shopId: shopId,
-        //     shopCount: shopCount
-        // })
-        // console.log(res)
-        // store.dispatch({
-        //     type:'add_to_cart',
-        //     goods:{
-        //         shopId,
-        //         shopCount,
-        //         goods_qty:1
-        //     }
-        // }) 
         console.log(this.state.sDetailImg[0])
         // 判断当前商品是否已经添加到购物车
         const { dispatch, cartlist } = this.props;
@@ -163,45 +130,58 @@ class Detail extends React.Component {
 
         // 商品的信息sProfileImg
         let goodsimg = this.state.sDetailImg[0];//iCheck,isPromote,iGoodsId,iTotal,iCurrPrice,sMallName
-        // let goodsimg=this.state.detail;
-        console.log(this.state.detail)
         // 已添加：修改数量
         if (currentGoods) {
             let iTotal = currentGoods.iTotal - 0 + shopCount
-            dispatch({
-                type: 'change_qty',
-                iGoodsId,
-                iTotal
-            })
-        } else {   // 购物车未有该商品：添加该商品到购物车
-            dispatch({
-                type: 'add_to_cart',
-                goods: {
-                    iCheck: true,
-                    isPromote: true,
-                    iGoodsId: iGoodsId,
-                    iTotal: shopCount,
-                    iCurrPrice: this.state.detail.iPrice,
-                    sMallName: this.state.detail.sMallName,
-                    sProfileImg: goodsimg
+            detail.changegoods(iGoodsId,iTotal).then(res=>{
+                let p=res.data;
+                if (p.code == 200) {
+                    dispatch({
+                        type: 'change_qty',
+                        iGoodsId,
+                        iTotal
+                    })
+                } else {
+                    console.log("网络出错了，请稍后重试！！")
                 }
             })
+        } else {   // 购物车未有该商品：添加该商品到购物车
+            let goods={
+                // iCheck: true,
+                // isPromote: true,
+                iGoodsId: iGoodsId,
+                iTotal: shopCount,
+                iCurrPrice: this.state.detail.iPrice,
+                sMallName: this.state.detail.sMallName,
+                sProfileImg: goodsimg
+            }
+            detail.addCartGood(goods).then(res=>{
+                console.log(res)
+                let p=res.data;
+                console.log(p);
+                if (p.code == 200) {
+                    dispatch({
+                        type: 'add_to_cart',
+                        goods
+                    })
+                    console.log("请求成功")
+                } else {
+                    console.log("网络出错了，请稍后重试！！")
+                }
+            })
+
+            
         }
     }
     // 选择商品点击减号的时候
     reduce() {
         if (this.state.count <= 1) {
-
             console.log("不能再少了")
             this.setState({
                 count: 1
             })
             return
         }
-        // if (this.state.count < 2) {
-        // console.log("不能再少了")
-        // return
-        // } else {
         this.setState({
             count: this.state.count - 1
         })
@@ -217,24 +197,49 @@ class Detail extends React.Component {
     buyNow() {
         // 数量要加1
         // 判断当前商品是否已经添加到购物车
-        const iGoodsId = this.state.detail.id;
+        const iGoodsId = this.state.detail.iGoodsId;
+        console.log(this.state.detail)
         const { dispatch, cartlist } = this.props;
         const currentGoods = cartlist.filter(item => item.iGoodsId == iGoodsId)[0];
-
+        let goodsimg = this.state.sDetailImg[0];
         // 已添加：修改数量
         if (currentGoods) {
             let iTotal = currentGoods.iTotal - 0 + 1
-            dispatch({
-                type: 'change_qty',
-                iGoodsId,
-                iTotal
+            detail.changegoods(iGoodsId,iTotal).then(res=>{
+                let p=res.data;
+                if (p.code == 200) {
+                    dispatch({
+                        type: 'change_qty',
+                        iGoodsId,
+                        iTotal
+                    })
+                } else {
+                    console.log("网络出错了，请稍后重试！！")
+                }
             })
         } else {   // 购物车未有该商品：添加该商品到购物车
-            dispatch({
-                type: 'add_to_cart',
-                goods: {
-                    iGoodsId: iGoodsId,
-                    iTotal: 1
+            console.log(iGoodsId)
+            let goods={
+                // iCheck: true,
+                // isPromote: true,
+                iGoodsId: iGoodsId,
+                iTotal: 1,
+                iCurrPrice: this.state.detail.iPrice,
+                sMallName: this.state.detail.sMallName,
+                sProfileImg: goodsimg
+            }
+            detail.addCartGood(goods).then(res=>{
+                console.log(res)
+                let p=res.data;
+                console.log(p);
+                if (p.code == 200) {
+                    dispatch({
+                        type: 'add_to_cart',
+                        goods
+                    })
+                    console.log("请求成功")
+                } else {
+                    console.log("网络出错了，请稍后重试！！")
                 }
             })
         }
