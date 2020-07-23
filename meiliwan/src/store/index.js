@@ -2,58 +2,19 @@ import { createStore } from 'redux'
 import detail from '../api/detail';
 // 初始状态
 const initState = {
-    // cartlist: [
-    //     {
-    //         "iCheck": true,
-    //         "isPromote": true,
-    //         "iGoodsId": 14336,
-    //         "iTotal": "1",
-    //         "iCurrPrice": 599.00,
-    //         "sMallName": "源计划 艾瑞莉娅 中型雕塑",
-    //         "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202006/20200611211952_44398.jpg"
-    //     },
-    //     {
-    //         "iCheck": true,
-    //         "isPromote": true,
-    //         "iGoodsId": 13243,
-    //         "iTotal": "2",
-    //         "iCurrPrice": 249.00,
-    //         "sMallName": "柯基库奇 毛绒",
-    //         "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202003/20200331135548_84130.jpg"
-    //     },
-    //     {
-    //         "iCheck": true,
-    //         "isPromote": true,
-    //         "iGoodsId": 12862,
-    //         "iTotal": "3",
-    //         "iCurrPrice": 419.00,
-    //         "sMallName": "NIKE X LPL 战队IG比赛男子球衣",
-    //         "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202001/20200113160828_34014.jpg"
-    //     },
-    //     {
-    //         "iCheck": true,
-    //         "isPromote": true,
-    //         "iGoodsId": 12805,
-    //         "iTotal": "5",
-    //         "iCurrPrice": 220.00,
-    //         "sMallName": "约德尔人迷你手办套装",
-    //         "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202001/20200102120303_37392.jpg"
-    //     }
-    // ],
     cartlist: [],
     totalPrice: 0,
     step: 0,
+    NoGoodsVisible:false
 }
 
 let uid = localStorage.getItem("uid")
 detail.getCarGoods(uid).then(res => {
-    console.log(res)
     let list = []
     if (res.data.flag) {
         for (let i = 0; i < res.data.data.p.length; i++) {
             list.push(res.data.data.p[i])
         }
-        console.log(list)
         for (let i = 0; i < list.length; i++) {
             let goodsd = list[i]
             store.dispatch({
@@ -71,6 +32,8 @@ detail.getCarGoods(uid).then(res => {
                 }
             });
         }
+    } else{
+        console.log("请求失败")
     }
 })
 // console.log(p.data)
@@ -106,7 +69,7 @@ function reducer(state = initState, action) {
             }
         // 修改数量
         case 'change_qty': {
-            console.log(action)
+            // console.log(action)
             return {
                 ...state,
                 cartlist: state.cartlist.map(item => {
@@ -126,28 +89,14 @@ function reducer(state = initState, action) {
             }
         // 选中商品,单选
         case 'select_cart':
-            // console.log(5555)
             return {
                 ...state,
                 cartlist: state.cartlist.map(item => {
-                    if (item.iGoodsId == action.iGoodsId) {
-                        item.iCheck= !item.iCheck
-                    }
-                    console.log('改变ture的值',item.iCheck)
-                    console.log('当前item的值',item)
-                    return item;
-                    
-                })
-            }
-        // 全选按钮的效果
-        case 'all_select_cart':
-            // console.log(6666)
-            return {
-                ...state,
-                cartlist: state.cartlist.map(item => {
-                    item.iCheck = action.allchoose;
-                    return item;
-                })
+                        if (item.iGoodsId == action.iGoodsId) {
+                            item.iCheck =action.iCheck
+                        }
+                        return item
+                    })
             }
         // 哪个选项显示删除按钮
         case 'del_select_cart':

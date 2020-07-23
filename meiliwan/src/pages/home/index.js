@@ -21,7 +21,7 @@ class Home extends React.Component {
     addCart (item) {
         console.log(item)
         console.log(item.iGoodsId)
-        // console.log(item.sDetailImg.split(",")[0])
+        console.log(item.sDetailImg.split(",")[0])
         console.log('商品加到购物车');
 
         // 判断当前商品是否已经添加到购物车
@@ -46,10 +46,9 @@ class Home extends React.Component {
                 }
             })
         } else {   // 购物车未有该商品：添加该商品到购物车
-            console.log(iGoodsId)
-            console.log(item.iPrice)
-            console.log(item.sMallName)
             let goods = {
+                iCheck: 0,
+                isPromote: true,
                 iGoodsId: iGoodsId,
                 iTotal: 1,
                 iCurrPrice: item.iPrice,
@@ -76,13 +75,11 @@ class Home extends React.Component {
     async componentWillMount() {
         //    封装
         detail.gethotgoods().then(res => {
-            console.log(res)
+            // console.log(res)
             let p = res.data;
-            console.log(p);
+            // console.log(p);
             if (p.code == 200) {
                 // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
-                console.log("请求成功")
-                console.log(p.data.p[0].sDetailImg.split(",")[0])
                 let excellent = p.data.p
                 // // 新品
                 let newPro = p.data.p
@@ -97,26 +94,13 @@ class Home extends React.Component {
                 console.log("网络出错了，请稍后重试！！")
             }
         })
-        // // 精品
-        // let excellent = await http.get('/db/home.json')
-        // // // 新品
-        // let newPro = await http.get('/db/home1.json')
-        // // // 热销
-        // let hotSale = await http.get('/db/home2.json')
-        // this.setState({
-        //     excellent,
-        //     newPro,
-        //     hotSale
-        // })
+
         // 获取全部商品
         detail.getgood().then(res => {
-            console.log(res)
+            // console.log(res)
             let p = res.data;
-            console.log(p);
+            // console.log(p);
             if (p.code == 200) {
-                // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
-                console.log("请求成功")
-                console.log(p.data.p[0].sDetailImg.split(",")[0])
                 // // 新品
                 let allgoods = p.data.p
                 // // 热销
@@ -148,7 +132,7 @@ class Home extends React.Component {
             {/* //   搜索框 */}
             <Row className="index_search">
                 <Col className='index_search_mid' span={24}>
-                    <span><img alt='nofound' src="./home/icosousuo.png" /></span>
+                    <span><img alt='nofound' src="http://localhost:3000/home/icosousuo.png" /></span>
                     <Input type="text" id="search_text" className="search_text" placeholder="请输入您所搜索的商品"></Input>
                 </Col>
             </Row>
@@ -159,25 +143,25 @@ class Home extends React.Component {
                     <ul>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
-                                <img alt="全部商品" src="./home/shop.png" />
+                                <img alt="全部商品" src="http://localhost:3000/home/shop.png" />
                                 <span>全部商品</span>
                             </Link>
                         </li>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
-                                <img alt="优惠活动" src="./home/preferential.png" />
+                                <img alt="优惠活动" src="http://localhost:3000/home/preferential.png" />
                                 <span>优惠活动</span>
                             </Link>
                         </li>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
-                                <img alt="团购" src="./home/tuangou.png" />
+                                <img alt="团购" src="http://localhost:3000/home/tuangou.png" />
                                 <span>团购</span>
                             </Link>
                         </li>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
-                                <img alt="个人中心" src="./home/mine.png" />
+                                <img alt="个人中心" src="http://localhost:3000/home/mine.png" />
                                 <span>个人中心</span>
                             </Link>
                         </li>
@@ -211,7 +195,7 @@ class Home extends React.Component {
                                                             <div className="goods_name"> {item.sMallName} </div>
                                                         </Link>
                                                         <div className="price">
-                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, {...item})}> <img src="./home/index_flow.png" alt="" /></Link>
+                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, {...item})}> <img src="http://localhost:3000/home/index_flow.png" alt="" /></Link>
                                                             <span className="price_pro"> {item.iPrice}</span>
                                                         </div>
                                                     </div>
@@ -255,7 +239,7 @@ class Home extends React.Component {
                                                             <div className="goods_name">{item.sMallName}</div>
                                                         </Link>
                                                         <div className="price">
-                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, item.iGoodsId)}> <img src="./home/index_flow.png" alt="" /></Link>
+                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, {...item})}> <img src="http://localhost:3000/home/index_flow.png" alt="" /></Link>
                                                             <span className="price_pro"> {item.iPrice}</span>
                                                         </div>
                                                     </div>
@@ -299,7 +283,7 @@ class Home extends React.Component {
                                                             <div className="goods_name">{item.sMallName}</div>
                                                         </Link>
                                                         <div className="price">
-                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, item.iGoodsId)}> <img src="./home/index_flow.png" alt="" /></Link>
+                                                            <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, {...item})}> <img src="http://localhost:3000/home/index_flow.png" alt="" /></Link>
                                                             <span className="price_pro">{item.iPrice}</span>
                                                         </div>
                                                     </div>
@@ -335,7 +319,7 @@ class Home extends React.Component {
                                         <div className="goods_name">{item.sMallName}</div>
                                     </Link>
                                     <div className="price">
-                                        <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this, item.iGoodsId)}> <img src="./home/index_flow.png" /></Link>
+                                        <Link to={{ pathname: '' }} className="btns" onClick={this.addCart.bind(this,{...item})}> <img src="http://localhost:3000/home/index_flow.png" /></Link>
                                         <span className="price_pro"> {item.iPrice}</span>
                                     </div>
                                 </div>
@@ -349,7 +333,7 @@ class Home extends React.Component {
             {/* 返回顶部 */}
             <BackTop>
                 <a onClick={this.gotop} className="gotop">
-                    <img src="./home/top.png" />
+                    <img src="http://localhost:3000/home/top.png" />
                 </a>
             </BackTop>
         </div>

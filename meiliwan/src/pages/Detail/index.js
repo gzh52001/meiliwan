@@ -148,8 +148,8 @@ class Detail extends React.Component {
             })
         } else {   // 购物车未有该商品：添加该商品到购物车
             let goods={
-                // iCheck: true,
-                // isPromote: true,
+                iCheck: 0,
+                isPromote: true,
                 iGoodsId: iGoodsId,
                 iTotal: shopCount,
                 iCurrPrice: this.state.detail.iPrice,
@@ -221,8 +221,8 @@ class Detail extends React.Component {
         } else {   // 购物车未有该商品：添加该商品到购物车
             console.log(iGoodsId)
             let goods={
-                // iCheck: true,
-                // isPromote: true,
+                iCheck: 0,
+                isPromote: true,
                 iGoodsId: iGoodsId,
                 iTotal: 1,
                 iCurrPrice: this.state.detail.iPrice,
@@ -282,6 +282,12 @@ class Detail extends React.Component {
             visible: false
         })
     }
+    // 点击返回
+    back(){
+        // console.log(this.props)
+        const {history}=this.props;
+        history.goBack(-1);
+    }
     render() {
         // console.log(this.props)
         const { detail } = this.state;
@@ -297,7 +303,7 @@ class Detail extends React.Component {
                         <div className="fixedbar-con">
                             <div className="detail-head">
                                 <a href="#" className="back">
-                                    <i className="ico-mall ico-addr i-back"></i>
+                                    <i className="ico-mall ico-addr i-back" onClick={this.back.bind(this)}></i>
                                 </a>
                                 <div className="cate">
                                     <div className={this.state.navList === 0 ? "item item-cur" : "item"}>
@@ -309,7 +315,7 @@ class Detail extends React.Component {
                                     <div className={this.state.navList === 2 ? "item item-cur" : "item"}>
                                         <a onClick={() => this.scrollToAnchor('details', 2)} title="详情">详情</a>
                                     </div></div> <div className="cate-right">
-                                    <a href="#cart" className="cate-cart" title="购物车">
+                                    <a href="/cart" className="cate-cart" title="购物车">
                                         <i className="ico-mall ico-cart"></i>
                                         <span className="cart-point">
                                             <i>{cartCount}</i>
@@ -357,7 +363,7 @@ class Detail extends React.Component {
                                             {/* 轮播指示测试 */}
 
                                         </Carousel>
-                                        <div className="swiper-scrollbar">
+                                        <div className="swiper-scrollbar" style={{display:'none'}}>
                                             <div className="swiper-scrollbar-drag" style={{ transform: "translate3d(0px, 0px, 0px)", transitionDuration: 0, width: "22px" }}>
                                             </div>
                                         </div>

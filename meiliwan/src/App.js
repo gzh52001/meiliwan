@@ -9,7 +9,6 @@ import Detail from './pages/Detail'
 import {connect} from 'react-redux'
 class App extends React.Component{
     render(){
-        console.log("app.props=",this.props)
         return (<div>
             <Switch>
             <Route path='/home' component={Home}></Route>
@@ -18,7 +17,7 @@ class App extends React.Component{
            <Route path='/mine' component={Mine}></Route>
            <Route path='/customer' component={Customer}></Route>
            <Route path='/detail/:id' component={Detail}></Route>
-           {/* <Redirect from='/' to='/home' exact /> */}
+           <Redirect from='/' to='/home' exact />
            </Switch>
         </div>)
     }

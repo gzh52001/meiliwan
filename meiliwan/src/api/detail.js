@@ -12,13 +12,17 @@ export default {
         })
     },
     //获取购物车商品
-    getCarGoods(id) {
+    getCarGoods() {
         return request({
             method: 'get',
-            url: '/good/cart/'+id,
+            url: `/good/cart/${uid}`,
+             // params: {
+            //     id
+            // }
         })
+        // return request.get(`/good/cart/${uid}`)
     },
-     //获取购物车推荐商品，失败
+     //获取购物车推荐商品
      getCarGoods_roud(id) {
         return request({
             method: 'get',
@@ -30,7 +34,6 @@ export default {
     },
     // 添加新商品到购物车
     addCartGood(goods) {
-        console.log(goods)
         return request({
             method: 'post',
             url:'/good/addgoods',
@@ -63,7 +66,7 @@ export default {
             }
         })
     },
-    // 获取推荐商品
+    // 获取热销商品
     gethotgoods() {
         return request({
             method:'get',

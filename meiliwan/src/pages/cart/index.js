@@ -5,6 +5,7 @@ import '../../utils/flexible'
 import './cart.scss'
 import { Input, InputNumber } from 'antd';
 import detail from '../../api/detail';
+import store from '../../store';
 class Cart extends React.Component {
     constructor() {
         super()
@@ -12,42 +13,41 @@ class Cart extends React.Component {
             // 推荐商品信息
             goods: [],
             // 没有商品时显示
-            NoGoodsVisible: false,
+            // NoGoodsVisible: false,
             // 购物车商品信息
-            // goodsList: [],
+            // goodsList: this.props.cartlist,
             // 计算总价
-            totalPrice: 0.00,
+            totalPrices: 0.00,
             // 判断是否全选
-            allSelect: false
+            allSelect: 0
         }
         this.UnSelectAll = this.UnSelectAll.bind(this)
     }
     // 请求数据
     componentDidMount() {
         // 获取购物车的信息
-
+        // if(this.props.cartlist.length==0){
+        //     this.setState({
+        //         NoGoodsVisible:true
+        //     })
+        // }
+        
         // 获取推荐商品
         detail.getCarGoods_roud().then(res => {
-            console.log(res)
+            // console.log(res)
             let p = res.data;
-            console.log(p);
+            // console.log(p);
             if (p.code == 200) {
-                // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
-                console.log("请求成功")
-                console.log(p.data.p[0].sDetailImg.split(",")[0])
-                // // 新品
                 let goods = p.data.p
-                // // 热销
                 this.setState({
-                   goods
+                    goods
                 })
-                console.log(goods)
+                // console.log(goods)
             } else {
                 console.log("网络出错了，请稍后重试！！")
             }
         })
         //  判断是否满足全选条件
-        this.check_all();
         // 计算总价，判断是否全选
         // this.onSelect()
         // this.totalPrice()
@@ -89,83 +89,107 @@ class Cart extends React.Component {
             console.log(p);
         })
     }
-    //  判断是否满足全选条件
-    check_all() {
-        let p = this.props.cartlist.every(item => {
-            return item.iCheck === true
-        })
-        if (p) {
-            this.props.dispatch({
-                type: 'all_select_cart',
-                allSelect: true
-            })
-        } else {
-            this.props.dispatch({
-                type: 'all_select_cart',
-                allSelect: false
-            })
-        }
-    }
     // 选中商品
-    onSelect(iGoodsId) {
+    onSelect(item) {
         // 当数组中元素是值类型，map不会改变原数组；当是引用类型，则可以改变原数组
-        console.log(iGoodsId)
-        this.props.dispatch({
-            type: 'select_cart',
-            iGoodsId
+        console.log(item)
+        console.log(this.props)
+        this.props.cartlist.map(itm => {
+            if (itm.iGoodsId == item.iGoodsId) {
+                let iGoodsId = itm.iGoodsId
+                if (itm.iCheck === 0) {
+                    let iCheck = 1
+                    store.dispatch({
+                        type: 'select_cart',
+                        iGoodsId,
+                        iCheck
+                    })
+                    let allcheckedlength = this.props.cartlist.filter(i => {
+                        return i.iCheck == 1
+                    })
+                    if (allcheckedlength.length === this.props.cartlist.length) {
+                        this.setState({
+                            allSelect: true
+                        })
+                    } else {
+                        this.setState({
+                            allSelect: false
+                        })
+                    }
+                    this.totalPrice();
+                }else {
+                    let iCheck = 0
+                    store.dispatch({
+                        type: "select_cart",
+                        iGoodsId,
+                        iCheck
+                    })
+                    // 判断选中的长度是否跟列表长度一样
+                    let allcheckedlength = this.props.cartlist.filter(i => {
+                        return i.iCheck == 1
+                    })
+                    // 如果一样全选就是true
+                    if (allcheckedlength.length === this.props.cartlist.length) {
+                        this.setState({
+                            allSelect: true
+                        })
+                    } else {
+                        this.setState({
+                            allSelect: false
+                        })
+                    }
+                    this.totalPrice();
+                }
+            } 
         })
-        this.check_all()
-        // this.UnSelectAll()
-        this.totalPrice()
     }
     // 点击全选按钮的时候
     UnSelectAll() {
         //  判断是否满足全选条件
-        let p = this.props.cartlist.every(item => {
-            return item.iCheck == true
-        })
-        console.log(p)
-        if (p) {
-            this.props.dispatch({
-                type: 'all_select_cart',
-                allchoose: false
-            })
+       if(this.state.allSelect){
             this.setState({
-                allSelect: false
+                allSelect:false
             })
-        } else {
-            this.props.dispatch({
-                type: 'all_select_cart',
-                allchoose: true
+            this.props.cartlist.map(item=>{
+                let iCheck=0;
+                let iGoodsId=item.iGoodsId;
+                store.dispatch({
+                    type:'select_cart',
+                    iGoodsId,
+                    iCheck
+                })
             })
+            this.totalPrice();
+        }else{
             this.setState({
                 allSelect: true
             })
+            this.props.cartlist.map(item=>{
+                let iCheck=1;
+                let iGoodsId=item.iGoodsId;
+                store.dispatch({
+                    type:'select_cart',
+                    iGoodsId,
+                    iCheck
+                })
+            })
+            this.totalPrice();
         }
-        this.totalPrice()
     }
     // 计算总价
-    totalPrice() {
+    totalPrice=() =>{
         // 遍历
         let p = 0.00;
-        // console.log(666666)
-        // console.log("11111",this.props.cartlist)
         this.props.cartlist.filter(item => {
-            if (item.iCheck) {
+            if (item.iCheck==1) {
                 p = p + (item.iTotal * item.iCurrPrice);
                 // console.log('里面的PPP',p)
             }
             return p;
         })
-        // console.log("22222",this.props.cartlist)
-        console.log(p)
         this.setState({
-            totalPrice: p.toFixed(2)
+            totalPrices: p.toFixed(2)
         })
-        // this.props.dispatch({
-        //     type:'all_price'
-        // })
-        // console.log(this.props.totalPrice);
     }
     // 点击减号，数量减少
     onMix(iGoodsId) {
@@ -184,19 +208,13 @@ class Cart extends React.Component {
                     type: 'change_qty',
                     iGoodsId,
                     iTotal
-                })
+                }) 
+                this.totalPrice()
             } else {
                 console.log("网络出错了，请稍后重试！！")
             }
         })
-
-        // this.props.dispatch({
-        //     type: 'change_qty',
-        //     iGoodsId,
-        //     iTotal
-        // })
-        this.totalPrice()
-
+       
     }
     // 点击加号，数量添加
     onAdd(iGoodsId) {
@@ -210,6 +228,7 @@ class Cart extends React.Component {
                     iGoodsId,
                     iTotal
                 })
+                this.totalPrice()
             } else {
                 console.log("网络出错了，请稍后重试！！")
             }
@@ -219,29 +238,29 @@ class Cart extends React.Component {
         //     iGoodsId,
         //     iTotal
         // })
-        this.totalPrice()
+       
     }
     render() {
-        console.log(this.props)
         // const { goodsList } = this.state;
         let goodsList = this.props.cartlist;
+        let NoGoodsVisible =this.props.cartlist.length;
         return (
             <div style={{ height: "100%", background: "#fff" }}>
                 <section style={{ height: "100%" }}>
                     {/* 购物车部分 */}
                     {/* 没有商品的时候 */}
-                    <div className="com-msgbox" style={{ display: this.state.NoGoodsVisible ? "block" : "none" }}>
+                    <div className="com-msgbox" style={{ display: NoGoodsVisible ==0? "block" : "none" }}>
                         <i className="ico-mall i-cart"></i>
                         <div className="msg">购物车好空呀，快去选购吧~</div>
                         <a href="/lol" className="btn-com nuxt-link-active">去逛逛</a>
                     </div>
 
                     {/* 有商品的时候 */}
-                    <div className="cart-list" style={{ display: this.state.NoGoodsVisible ? "none" : "block" }}>
+                    <div className="cart-list" style={{ display: NoGoodsVisible ==0? "none" : "block" }}>
                         <div className="cart-item">
                             <div className="item-hd">
                                 <a className="btn-check">
-                                    <i className={this.state.allSelect ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.UnSelectAll}></i>
+                                    <i className={this.state.allSelect ==1 ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.UnSelectAll}></i>
                                 </a>
                                 <div className="item-hdimg">
                                     <img src="https://game.gtimg.cn/images/daoju/base/logo/biz/lol.png" lazy="loaded" />
@@ -257,7 +276,7 @@ class Cart extends React.Component {
                                             <div className="order-good">
                                                 <div className="good-item">
                                                     <a className="btn-check">
-                                                        <i className={item.iCheck !== 0  ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.onSelect.bind(this, item.iGoodsId)}></i>
+                                                        <i className={item.iCheck === 1  ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.onSelect.bind(this, item)}></i>
                                                     </a>
                                                     <a className="good-img">
                                                         <img src={item.sProfileImg} lazy="loaded" />
@@ -324,13 +343,13 @@ class Cart extends React.Component {
                             <div className="cart-btnbox">
                                 <div className="balance">
                                     <a className="btn-check">
-                                        <i className={this.state.allSelect ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.UnSelectAll}></i>
+                                        <i className={this.state.allSelect==1 ? "ico-mall i-check i-checked" : "ico-mall i-check"} onClick={this.UnSelectAll}></i>
                                     </a>
                                     <p className="bal-txt">全选</p>
                                     <div className="totalpri">
                                         <p className="pri">合计：
                                                 <span className="red">
-                                                <strong>¥ {this.state.totalPrice}</strong>
+                                                <strong>¥ {this.state.totalPrices}</strong>
                                             </span>
                                         </p>
                                         <p className="pritip">不含运费</p>
@@ -352,7 +371,7 @@ class Cart extends React.Component {
                             {
                                 this.state.goods.map(item => (
                                     <li key={item.iGoodsId}>
-                                        <a href={`/detail/`+item.iGoodsId} className="list-link">
+                                        <a href={`/detail/` + item.iGoodsId} className="list-link">
                                             <div className="list-img">
                                                 <img src={item.sDetailImg.split(",")[0]} lazy="loaded" />
                                             </div>
