@@ -6,6 +6,7 @@ import Food from '../../components/food';
 import Life from '../../components/life';
 import Furniture from '../../components/furniture';
 import Tea from '../../components/tea';
+import Goodslist from '../goodslist'
 function Sort(props){
         const menu = [{
             text: '休闲食品',
@@ -39,12 +40,13 @@ function Sort(props){
                   <Route path='/sort/life' component={Life} />
                   <Route path='/sort/furniture' component={Furniture} />
                   <Route path='/sort/tea' component={Tea} />
+                  <Route path='/goodslist' component={Goodslist} />
                   <Redirect from='/sort' to='/sort/food' exact />
                 </Switch>
             </div>
         )
 };
-
+Sort = withRouter(Sort);
 Sort = withUser(Sort); // Home得到的是高阶组件中的OuterComponent
 
 export default Sort;

@@ -1,16 +1,29 @@
 import React from 'react';
 import './index.css';
+import {withRouter} from 'react-router-dom'
 import {withUser} from '../../utils/hoc';
 
-class Tea extends React.Component{
-    render(){
-        
+function Tea (props){
+    const menu = [{
+        text:'绿茶',
+        id:21,
+        path: '/Goodslist'
+      },{
+        text:'养生茶',
+        id:22,
+        path: '/Goodslist'
+      }];
+      const goto = (path)=>{
+        console.log(props);
+     // this.props.history.push(path);
+     props.history.push(path);
+   };
         return (
             <div className = "tea">
                 <div className = "box"> 
         	 
                     <span>
-                        <a href="category.php?id=7">
+                        <a onClick={goto.bind(null,'/Goodslist')}>
                             <em>全部&gt;&gt;</em>
                         </a>
                     </span>  
@@ -19,14 +32,10 @@ class Tea extends React.Component{
                     <dd> 
                         <div className="fenimg">
                  
-                            <div className="fen">
-                                <a href="category.php?id=301">绿茶</a> 
-                            </div>  
-       
-          
-                            <div className="fen">
-                                <a href="category.php?id=304">养生茶</a> 
-                            </div>  
+                            {
+                                menu.map(item=>(
+                                    <li className = "fen" key={item.path} onClick={goto.bind(null,item.path)}><a>{item.text}</a></li>)) 
+                            }
        
                         </div>
           
@@ -35,8 +44,8 @@ class Tea extends React.Component{
             </div>
         )
     }
-}
 
+Tea = withRouter(Tea);
 Tea = withUser(Tea); // Home得到的是高阶组件中的OuterComponent
 
 export default Tea;

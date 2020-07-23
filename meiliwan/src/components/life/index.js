@@ -1,15 +1,59 @@
 import React from 'react';
 import './index.css';
+import {withRouter} from 'react-router-dom'
 import {withUser} from '../../utils/hoc';
 
-class Life extends React.Component{
-    render(){
+function Life (props){
+    const  menu1 = [{
+        text: '成人床垫',
+        id:5,
+        path: '/Goodslist'
+      }, {
+        text: '婴儿床垫',
+        id:6,
+        path: '/Goodslist'
+      }];
+    const menu2 = [{
+        text:'U形枕',
+        id:7,
+        path: '/Goodslist'
+      },{
+        text:'椭圆枕',
+        id:8,
+        path: '/Goodslist'
+      },{
+        text:'婴儿枕',
+        id:9,
+        path: '/Goodslist'
+      },{
+        text:'波浪枕',
+        id:10,
+        path: '/Goodslist'
+      },{
+        text:'抱枕',
+        id:11,
+        path: '/Goodslist'
+      }];
+    const menu3 = [{
+        text:'坐垫',
+        id:12,
+        path: '/Goodslist'
+      },{
+        text:'靠垫',
+        id:13,
+        path: '/Goodslist'
+      }]
+   const goto = (path)=>{
+           console.log(props);
+        // this.props.history.push(path);
+        props.history.push(path);
+      };
         
         return (
             <div className = "life">
                 <div className = "box">
                     <span>
-                        <a href="category.php?id=363">
+                        <a onClick={goto.bind(null,'/Goodslist')}>
                             <em>全部&gt;&gt;</em>
                         </a> 
 		            </span>
@@ -17,14 +61,10 @@ class Life extends React.Component{
                     <dd> 
                         <div className="fenimg">
 
-                            <div className="fen">
-                                <a href="category.php?id=394">成人床垫</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=395">婴儿床垫</a> 
-                            </div>  
+                        {
+                            menu1.map(item=>(
+                                <li className = "fen" key={item.path} onClick={goto.bind(null,item.path)}><a>{item.text}</a></li>))
+                        } 
 
                         </div>
 
@@ -34,29 +74,10 @@ class Life extends React.Component{
                     <dd> 
                         <div className="fenimg">
 
-                            <div className="fen">
-                                <a href="category.php?id=398">U形枕</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=399">椭圆枕</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=400">婴儿枕</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=396">波浪枕</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=397">抱枕</a> 
-                            </div>  
+                        {
+                            menu2.map(item=>(
+                                <li className = "fen" key={item.path} onClick={goto.bind(null,item.path)}><a>{item.text}</a></li>))
+                        }   
 
                         </div>
 
@@ -66,14 +87,10 @@ class Life extends React.Component{
                     <dd> 
                         <div className="fenimg">
 
-                            <div className="fen">
-                                <a href="category.php?id=401">坐垫</a> 
-                            </div>  
-
-
-                            <div className="fen">
-                                <a href="category.php?id=402">靠垫</a> 
-                            </div>  
+                        {
+                            menu3.map(item=>(
+                                <li className = "fen" key={item.path} onClick={goto.bind(null,item.path)}><a>{item.text}</a></li>))
+                        }   
 
                         </div>
 
@@ -82,8 +99,7 @@ class Life extends React.Component{
             </div>
         )
     }
-}
-
+Life = withRouter(Life);
 Life = withUser(Life); // Home得到的是高阶组件中的OuterComponent
 
 export default Life;

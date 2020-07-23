@@ -1,9 +1,21 @@
 import React from 'react';
 import './index.css';
+import {withRouter} from 'react-router-dom'
 import {withUser} from '../../utils/hoc';
 
-class Goodslist extends React.Component{
-    render(){
+function Goodslist (props){
+        const menu = [{
+            id:1,
+            price:12,
+            title:'dfdfsfdsfsdfsdsfs',
+            src: '../../assets/sort.jpg',
+            path: '/Good'
+        }];
+        const goto = (path)=>{
+            console.log(props);
+         // this.props.history.push(path);
+         props.history.push(path);
+       };
         return (
             <div>
                 <div className = "goodslist">
@@ -44,12 +56,42 @@ class Goodslist extends React.Component{
                             </li>
                         </ul>
                     </section>
+                    <div className = "list">
+                        <ul className = "list_table">
+                        {
+                            menu.map(item=>(
+                                <li className = "bar" key={item.path} onClick={goto.bind(null,item.path)}>
+                                    <a>
+                                        <div className="pic_box">
+                                            <div className="active_box">
+                                                <span style={{ background_position:"0px -70px" }}>精品</span>
+                                            </div>
+                                            <img src = {item.src}/>
+                                        </div>
+                                        <div className="title_box">{item.title}</div>
+                                        <div className="price_box">
+                                            <span className="new_price">
+                                                <i>{item.price}</i>
+                                            </span>
+                                        </div>    
+                                    </a>
+                                    <div className="ui-number b"> 
+                                        <a className="decrease" onclick="goods_cut(458);">-</a>
+                                        <input className="num" id="number_458" type="text" onblur="changePrice();" value="1" onfocus="if(value=='1') {value=''}" size="4" maxlength="5" />
+                                        <a className="increase" onclick="goods_add(458)">+</a> 
+                                    </div>
+                                    <span className="bug_car" onclick="addToCart(458)">
+                                        <i className="icon-shop_cart"></i>
+                                    </span>
+                                </li>))
+                        }   
+                        </ul>
+                    </div>
                 </div>
             </div>
         )
     }
-}
-
+Goodslist = withRouter(Goodslist);
 Goodslist = withUser(Goodslist); // Home得到的是高阶组件中的OuterComponent
 
 export default Goodslist;

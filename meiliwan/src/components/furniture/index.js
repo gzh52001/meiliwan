@@ -1,16 +1,49 @@
 import React from 'react';
 import './index.css';
+import {withRouter} from 'react-router-dom'
 import {withUser} from '../../utils/hoc';
 
-class Furniture extends React.Component{
-    render(){
+function Furniture (props){
+  const  menu = [{
+        text: '桌',
+        id:14,
+        path: '/Goodslist'
+      }, {
+        text: '椅凳',
+        id:15,
+        path: '/Goodslist'
+      },{
+        text:'沙发',
+        id:16,
+        path: '/Goodslist'
+      },{
+        text:'床',
+        id:17,
+        path: '/Goodslist'
+      },{
+        text:'茶几',
+        id:18,
+        path: '/Goodslist'
+      },{
+        text:'架子',
+        id:19,
+        path: '/Goodslist'
+      },{
+        text:'柜子',
+        id:20,
+        path: '/Goodslist'
+      }];
+     const goto = (path)=>{
+           console.log(props);
+           props.history.push(path);
+      };
         
         return (
             <div className = "furniture">
                 <div className = "box">
         	 
                     <span>
-                        <a href="category.php?id=362">
+                        <a onClick={goto.bind(null,'/Goodslist')}>
                             <em>全部&gt;&gt;</em>
                         </a>
                     </span>  
@@ -19,39 +52,10 @@ class Furniture extends React.Component{
                     <dd> 
                         <div className="fenimg">
 
-                            <div className="fen">
-                                <a href="category.php?id=408">桌</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=409">椅凳</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=410">沙发</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=411">床</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=412">茶几</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=414">架子</a> 
-                            </div>  
-            
-            
-                            <div className="fen">
-                                <a href="category.php?id=413">柜子</a> 
-                            </div>  
+                            {
+                                menu.map(item=>(
+                                    <li className = "fen" key={item.path} onClick={goto.bind(null,item.path)}><a>{item.text}</a></li>)) 
+                            }
             
                         </div>
             
@@ -60,8 +64,8 @@ class Furniture extends React.Component{
             </div>
         )
     }
-}
 
+Furniture = withRouter(Furniture)
 Furniture = withUser(Furniture); // Home得到的是高阶组件中的OuterComponent
 
 export default Furniture;
