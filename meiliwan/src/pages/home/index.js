@@ -2,10 +2,11 @@ import React from 'react'
 import { Row, Col, BackTop } from 'antd';
 import { Link } from 'react-router-dom';
 import { Input } from 'antd';
-import http, { request } from '../../utils/http';
+// import http, { request } from '../../utils/http';
 import detail from '../../api/detail';
 import { connect } from 'react-redux'
 import './index.scss'
+import Tabbar from "../../components/tabber/tab"
 class Home extends React.Component {
     constructor() {
         super();
@@ -73,27 +74,46 @@ class Home extends React.Component {
     }
     // 挂载前，获取数据
     async componentWillMount() {
-        //    封装
-        detail.gethotgoods().then(res => {
-            // console.log(res)
-            let p = res.data;
-            // console.log(p);
-            if (p.code == 200) {
-                // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
-                let excellent = p.data.p
-                // // 新品
-                let newPro = p.data.p
-                // // 热销
-                let hotSale = p.data.p
-                this.setState({
-                    excellent,
-                    newPro,
-                    hotSale
-                })
-            } else {
-                console.log("网络出错了，请稍后重试！！")
-            }
-        })
+        // let excellent={}
+        let arr=["excellent","newPro","hotSale"]
+        for(let j=0;j<3;j++){
+            detail.gethotgoods().then(res => {
+                // console.log(res)
+                let p = res.data;
+                // console.log(p);
+                if (p.code == 200) {
+                    // let name=arr[j]
+                    this.setState({
+                        [arr[j]]:p.data.p
+                    })
+                    console.log(arr[j])
+                    // console.log(name)
+                    console.log(p.data.p)
+                } else {
+                    console.log("网络出错了，请稍后重试！！")
+                }
+            })
+        }
+        // detail.gethotgoods().then(res => {
+        //     // console.log(res)
+        //     let p = res.data;
+        //     // console.log(p);
+        //     if (p.code == 200) {
+        //         // p.data.p.sDetailImg=p.data.p.sDetailImg.split(",")
+        //         let excellent = p.data.p
+        //         // // 新品
+        //         let newPro = p.data.p
+        //         // // 热销
+        //         let hotSale = p.data.p
+        //         this.setState({
+        //             excellent,
+        //             newPro,
+        //             hotSale
+        //         })
+        //     } else {
+        //         console.log("网络出错了，请稍后重试！！")
+        //     }
+        // })
 
         // 获取全部商品
         detail.getgood().then(res => {
@@ -139,7 +159,7 @@ class Home extends React.Component {
 
             {/* 导航 */}
             <Row className="entry-list">
-                <nav>
+                <div>
                     <ul>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
@@ -166,7 +186,7 @@ class Home extends React.Component {
                             </Link>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </Row>
             {/* 修饰 */}
             <Row className='floor_images'></Row>
@@ -336,6 +356,7 @@ class Home extends React.Component {
                     <img src="http://localhost:3000/home/top.png" />
                 </a>
             </BackTop>
+            <Tabbar></Tabbar>
         </div>
         )
     }

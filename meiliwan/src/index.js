@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { HashRouter, BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter, } from 'react-router-dom'
+import './index.css';
+import App from './App';
 import { Provider } from 'react-redux'
 import  store  from './store/index'
-import App from './App';
-// process.env.NODE_ENV  会根据是否是编译还是开发环境进行自动选择  build的时候会切换
 const Router = process.env.NODE_ENV === 'production' ? BrowserRouter : HashRouter;
-// HashRouter
-// const MyContext = React.createContext(null)
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App>
-      </App>
+      {/* <React.StrictMode> */}
+        <App />
+      {/* </React.StrictMode> */}
     </Router>
-  </Provider>,
+  </Provider>
+  ,
   document.getElementById('root')
 );
-
-

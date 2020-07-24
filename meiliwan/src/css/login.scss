@@ -1,0 +1,102 @@
+@function vw($px){
+    @return($px/750)*100vw;
+}
+*{
+    margin:0;
+    padding:0;
+}
+.top {
+        width: 100%;
+        height: vw(90);
+        background: #F6F6F6;
+        top: 0;
+        z-index: 9999;
+        border: 0;
+        border-bottom: vw(2) solid #CCC;
+        .left{
+            float: left;
+            width: 15%;
+            height: vw(90);
+            line-height:vw(90)
+        }
+        .h-mid{
+            width: 70%;
+        height: 45px;
+        float: left;
+        text-align: center;
+        color: #333;
+        font-size: vw(32);
+        line-height:vw(90);
+         position: relative;
+        }
+    }
+    .login{
+        
+            width: 100%;
+            margin: auto;
+            overflow:hidden;
+        padding-top: vw(40);
+        dl{
+            width: 100%;
+            overflow:hidden;
+
+        
+        
+         dt{
+               display:block;
+                width: 20%;
+                float: left;
+                font-size: vw(28);
+                line-height: vw(80);
+                color: #666;
+            
+        }
+         dd{
+            display:block;
+            width: 70%;
+            float: left;
+            height: vw(60);
+            input{
+                display:block;
+                border: vw(2) solid #DFDFDF;
+                height: vw(60);
+                line-height: vw(60);
+                width: 95%;
+                padding-left: vw(10);
+                
+            
+                border-radius: 0;
+               
+                
+                background-color: white;
+                font-size: vw(28);
+                line-height: vw(60);
+            }
+        }
+        }
+        button{
+            display:block;
+            width:80%;
+          background-color: red;
+          border:none;
+          height:vw(80);
+           color:white;
+           font-size: vw(32);
+           margin:0 auto;
+           margin-top:vw(40);
+           border-radius: 5px;
+        }
+       .pic{
+           text-align:center;
+           position: relative;
+           img{
+             
+               position: absolute;
+               top:0;
+               bottom:0;
+               left:0;
+               right:0;
+               margin:auto
+           }
+       }
+    }

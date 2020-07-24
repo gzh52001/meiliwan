@@ -287,46 +287,40 @@ i{
 }
 
 // 轮播指示器
-.swiper-scrollbar {
+// 按钮
+.ant-carousel .slick-dots-bottom{
     position: absolute;
     left: 50%;
     margin-left: -1rem;
     bottom: .37rem;
     z-index: 50;
     height: .06rem;
-    width: 2rem;
-    background: rgba(0,0,0,.1);
-    border-radius: 10px;
-}
-.swiper-scrollbar-drag {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    background: rgba(0,0,0,.5);
-    border-radius: 10px;
-    left: 0;
-    top: 0;
-}
-.roller-portrait {
-    position: relative;
-    width: 100%;
-    height: auto;
-}
-
-// 按钮
-.slick-dots-bottom{
-    display: block;
-    position: absolute;
-    left: 50%;
-    margin-left: -1rem;
-    bottom: 2.37rem;
-    z-index: 50;
-    height: .06rem;
-    width: 2rem;
+    // width: 2rem;
+    -webkit-tap-highlight-color: transparent;
     background: rgba(0,0,0,.1);
     li{
         float: left;
     }
+}
+.slick-dots-bottom li button{
+    width: .5rem;
+    display: block;
+//  width: 100%;
+ height: 3px;
+ padding: 0;
+ color: transparent;
+ font-size: 0;
+ background: #fff;
+ border: 0;
+ border-radius: 1px;
+ outline: none;
+ cursor: pointer;
+ opacity: 0.3;
+ -webkit-transition: all 0.5s;
+ transition: all 0.5s;
+}
+.slick-dots-bottom .slick-active{
+    background: rgba(0,0,0,.5);
 }
 
 // 标题
@@ -348,6 +342,7 @@ i{
     color: #333;
     line-height: .4rem;
     font-weight: 400;
+    text-align: left;
 }
 .good-detail .goodpic-roller .good-info .base .sub-tit {
     margin: .15rem 0 0;
@@ -422,6 +417,7 @@ i{
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-right: .1rem;
+    text-align: left;
 }
 .good-detail .goodpic-roller .good-info .actions .act-item .item-txt:after {
     content: "";
@@ -601,6 +597,7 @@ i{
     -ms-flex: 1;
     flex: 1;
     font-size: .28rem;
+    text-align: left;
     color: #333;
 }
 .comment-head .chead-right {
@@ -676,6 +673,7 @@ i{
     white-space: nowrap;
     padding-bottom: .04rem;
     font-weight: 400;
+    text-align: left;
 }
 .comment-list .cmnt-item .cmnt-hd .cmnt-info .info-scores {
     font-size: .24rem;
@@ -707,6 +705,7 @@ i{
     padding-top: .16rem;
     color: #999;
     font-size: .24rem;
+    text-align: left;
 }
 .comment-list .cmnt-item .cmnt-hd .cmnt-time span{
     padding-right: .16rem;
@@ -716,6 +715,7 @@ i{
 }
 .comment-list .cmnt-item .cmnt-box{
     margin-top: .2rem;
+    text-align: left;
 }
 .comment-list .cmnt-item .cmnt-box .cmnt-txt{
     font-size: .28rem;

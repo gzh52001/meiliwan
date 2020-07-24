@@ -2,9 +2,9 @@
 import React from 'react'
 import '../../utils/flexible'
 import './detail.scss'
-import { Carousel } from 'antd';
+import { Carousel,Input } from 'antd';
 // import { Modal, Button } from 'antd';
-import { Input } from 'antd';
+// import { Input } from 'antd';
 // import { message } from 'antd';
 // import http from '../../utils/http';
 // import store from '../../store/index';
@@ -43,18 +43,18 @@ class Detail extends React.Component {
         this.onMask = this.onMask.bind(this)
     }
     // 挂载前获取数据
-     componentDidMount() {
+    componentDidMount() {
         // window.addEventListener('scroll', this.handleScroll.bind(this)) //监听滚动
         // 获取商品id
         const { match } = this.props;
         const { id } = match.params;
         console.log(match)
-        detail.getgoods(id).then(res=>{
-            let p=res.data;
+        detail.getgoods(id).then(res => {
+            let p = res.data;
             if (p.code == 200) {
                 console.log(p.data.sDetailImg)
-                p.data.sDetailImg=p.data.sDetailImg.split(",")
-                p.data.sProfileImg=p.data.sProfileImg.split(",")
+                p.data.sDetailImg = p.data.sDetailImg.split(",")
+                p.data.sProfileImg = p.data.sProfileImg.split(",")
                 this.setState({
                     detail: p.data,
                     // 轮播图
@@ -134,8 +134,8 @@ class Detail extends React.Component {
         // 已添加：修改数量
         if (currentGoods) {
             let iTotal = currentGoods.iTotal - 0 + shopCount
-            detail.changegoods(iGoodsId,iTotal).then(res=>{
-                let p=res.data;
+            detail.changegoods(iGoodsId, iTotal).then(res => {
+                let p = res.data;
                 if (p.code == 200) {
                     dispatch({
                         type: 'change_qty',
@@ -147,7 +147,7 @@ class Detail extends React.Component {
                 }
             })
         } else {   // 购物车未有该商品：添加该商品到购物车
-            let goods={
+            let goods = {
                 iCheck: 0,
                 isPromote: true,
                 iGoodsId: iGoodsId,
@@ -156,9 +156,9 @@ class Detail extends React.Component {
                 sMallName: this.state.detail.sMallName,
                 sProfileImg: goodsimg
             }
-            detail.addCartGood(goods).then(res=>{
+            detail.addCartGood(goods).then(res => {
                 console.log(res)
-                let p=res.data;
+                let p = res.data;
                 console.log(p);
                 if (p.code == 200) {
                     dispatch({
@@ -171,7 +171,7 @@ class Detail extends React.Component {
                 }
             })
 
-            
+
         }
     }
     // 选择商品点击减号的时候
@@ -206,8 +206,8 @@ class Detail extends React.Component {
         // 已添加：修改数量
         if (currentGoods) {
             let iTotal = currentGoods.iTotal - 0 + 1
-            detail.changegoods(iGoodsId,iTotal).then(res=>{
-                let p=res.data;
+            detail.changegoods(iGoodsId, iTotal).then(res => {
+                let p = res.data;
                 if (p.code == 200) {
                     dispatch({
                         type: 'change_qty',
@@ -220,7 +220,7 @@ class Detail extends React.Component {
             })
         } else {   // 购物车未有该商品：添加该商品到购物车
             console.log(iGoodsId)
-            let goods={
+            let goods = {
                 iCheck: 0,
                 isPromote: true,
                 iGoodsId: iGoodsId,
@@ -229,9 +229,9 @@ class Detail extends React.Component {
                 sMallName: this.state.detail.sMallName,
                 sProfileImg: goodsimg
             }
-            detail.addCartGood(goods).then(res=>{
+            detail.addCartGood(goods).then(res => {
                 console.log(res)
-                let p=res.data;
+                let p = res.data;
                 console.log(p);
                 if (p.code == 200) {
                     dispatch({
@@ -283,9 +283,9 @@ class Detail extends React.Component {
         })
     }
     // 点击返回
-    back(){
+    back() {
         // console.log(this.props)
-        const {history}=this.props;
+        const { history } = this.props;
         history.goBack(-1);
     }
     render() {
@@ -352,18 +352,16 @@ class Detail extends React.Component {
                                 <div className='roller-portrait'>
                                     <div className='roller-portrait'>
                                         {/* 轮播图 */}
-                                        <Carousel effect="fade" autoplay={true} autoplaySpeed={4000} dots={false}>
+                                        <Carousel effect="fade" autoplay={true} autoplaySpeed={4000} dots={true}>
                                             {
-                                                this.state.sDetailImg.map(item => (
-                                                    <div className='lubo' key="item">
-                                                        <img src={item} alt="商品图" />
+                                                this.state.sDetailImg.map((item,index) => (
+                                                    <div className='lubo' key="index">
+                                                        <img src={item} alt="商品图"/>
                                                     </div>
                                                 ))
                                             }
-                                            {/* 轮播指示测试 */}
-
                                         </Carousel>
-                                        <div className="swiper-scrollbar" style={{display:'none'}}>
+                                        <div className="swiper-scrollbar" style={{ display: 'none' }}>
                                             <div className="swiper-scrollbar-drag" style={{ transform: "translate3d(0px, 0px, 0px)", transitionDuration: 0, width: "22px" }}>
                                             </div>
                                         </div>

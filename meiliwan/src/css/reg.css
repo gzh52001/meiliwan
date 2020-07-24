@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.c-form-txt-normal {
+  display: block;
+  height: 36px;
+  width: 96%;
+  margin: auto;
+  border: solid 1px #DDD;
+  padding-left: 9px;
+  color: #333333;
+  font-size: 14px;
+  -webkit-border-radius: 0;
+  -webkit-appearance: none;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.field {
+  padding: 5px 0;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.btn_big1 {
+  display: block;
+  margin: auto;
+  background: #FF2233;
+  font-size: 16px;
+  line-height: 40px;
+  border: 0px;
+  color: #FFF;
+  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 80%;
+}
