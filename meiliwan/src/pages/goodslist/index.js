@@ -6,9 +6,8 @@ import {withUser} from '../../utils/hoc';
 function Goodslist (props){
         const menu = [{
             id:1,
-            price:12,
-            title:'dfdfsfdsfsdfsdsfs',
-            src: '../../assets/sort.jpg',
+            price:"300.0",
+            title:'散装薄壳盐焗核桃20斤/件',
             path: '/Good'
         }];
         const goto = (path)=>{
@@ -57,16 +56,16 @@ function Goodslist (props){
                         </ul>
                     </section>
                     <div className = "list">
-                        <ul className = "list_table">
+                        <div className = "list_table">
                         {
                             menu.map(item=>(
                                 <li className = "bar" key={item.path} onClick={goto.bind(null,item.path)}>
-                                    <a>
+                                    <a className = "tab">
                                         <div className="pic_box">
                                             <div className="active_box">
                                                 <span style={{ background_position:"0px -70px" }}>精品</span>
                                             </div>
-                                            <img src = {item.src}/>
+                                            <img />
                                         </div>
                                         <div className="title_box">{item.title}</div>
                                         <div className="price_box">
@@ -75,9 +74,9 @@ function Goodslist (props){
                                             </span>
                                         </div>    
                                     </a>
-                                    <div className="ui-number b"> 
+                                    <div className="ui-number"> 
                                         <a className="decrease" onclick="goods_cut(458);">-</a>
-                                        <input className="num" id="number_458" type="text" onblur="changePrice();" value="1" onfocus="if(value=='1') {value=''}" size="4" maxlength="5" />
+                                        <input className="num" id="number_458" type="text" onblur="changePrice();" value="1" />
                                         <a className="increase" onclick="goods_add(458)">+</a> 
                                     </div>
                                     <span className="bug_car" onclick="addToCart(458)">
@@ -85,8 +84,9 @@ function Goodslist (props){
                                     </span>
                                 </li>))
                         }   
-                        </ul>
+                        </div>
                     </div>
+                    <a className="gotop" style= {{z_index:"9999"}}><img /></a>
                 </div>
             </div>
         )
