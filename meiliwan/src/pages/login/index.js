@@ -27,7 +27,7 @@ class Login extends React.Component{
                                 <dt>密码：</dt>
 								<dd><input type="password" name="password" placeholder="密码"></input></dd>
                                 </dl>
-                                <button>登录</button>
+                                <button onClick={this.goto.bind(null,'/mine')}>登录</button>
             </div>
             <div className="ng-foot">
               <div className="ng-cookie-area">

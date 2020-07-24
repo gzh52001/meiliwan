@@ -4,6 +4,7 @@ import {withUser} from '../../utils/hoc';
 import{LeftOutlined } from '@ant-design/icons'
 
 class Reg extends React.Component{
+	
 	constructor(){
 		super();
 		this.goto=this.goto.bind(this)
@@ -43,7 +44,7 @@ class Reg extends React.Component{
 								</div>
 																
                               
-								<input type="submit" id="btn_submit" name="Submit" className="btn_big1" value="注 册"/>
+								<input type="submit" id="btn_submit" name="Submit" className="btn_big1" value="注 册" onClick={this.goto.bind(null,'/login')}/>
 									
 						</form>
                         <div><img src={require('./regpic.png')}></img></div>
