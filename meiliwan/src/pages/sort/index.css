@@ -1,0 +1,27 @@
+.category1 {
+    height: 100%;
+    float: left;
+    width: 186px;
+    background-color: #fff;
+}
+.category1 ul {
+    width: 100%;
+    overflow: hidden;
+    padding-left: 0px;
+    margin: 0px;
+}
+.category1 li {
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background-color: #fff;
+    border-top: 2px solid #f4f4f4;
+    font-size: 32px;
+    overflow: hidden;
+    text-align: center;
+}
+.category1 li.active {
+    color: #DE3535;
+    border-left: 4px solid #DE3535;
+    background: #f4f4f4;
+}

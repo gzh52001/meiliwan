@@ -1,11 +1,12 @@
 import React from 'react'
-import http, { request } from '../../utils/http';
+// import http, { request } from '../../utils/http';
 import { connect } from 'react-redux'
 import '../../utils/flexible'
 import './cart.scss'
 import { Input, InputNumber } from 'antd';
 import detail from '../../api/detail';
 import store from '../../store';
+import Tabbar from "../../components/tabber/tab"
 class Cart extends React.Component {
     constructor() {
         super()
@@ -391,6 +392,7 @@ class Cart extends React.Component {
                         </ul>
                     </section>
                 </section>
+                <Tabbar></Tabbar>
             </div>
         )
 

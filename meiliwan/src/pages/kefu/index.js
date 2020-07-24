@@ -1,12 +1,13 @@
 import React from 'react';
 
 import {withUser} from '../../utils/hoc';
-
+import Tabbar from "../../components/tabber/tab"
 class Kefu extends React.Component{
     render(){
         return (
             <div>
                 Kefu
+                <Tabbar></Tabbar>
             </div>
         )
     }
