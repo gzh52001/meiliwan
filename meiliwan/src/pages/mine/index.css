@@ -1,0 +1,235 @@
+.user_com {
+    width: 100%;
+    overflow: hidden;
+    background: #F5F5F5;
+}
+a{
+    text-decoration: none;
+}
+li, img, label, input {
+    vertical-align: middle;
+}
+.com_top {
+    width: 100%;
+    height: 260px;
+    background: #EC8816 url(../../assets/user_bg.png) no-repeat center bottom;
+    position: relative;
+    z-index: 9999;
+}
+.Icon1, .Icon2, .Icon3, .Icon4, .Icon5, .Icon6, .Icon7, .Icon8, .Icon9 {
+    background-image: url(../../assets/user.png);
+    background-repeat: no-repeat;
+    background-size: auto 1200%;
+}
+.Icon {
+    display: block;
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+    position: absolute;
+}
+.com_top h2 {
+    width: 100%;
+    height: 80px;
+    margin: 0;
+}
+.com_top h2 a {
+    width: 100px;
+    display: block;
+    background-color: rgba(28,27,26,0.6);
+    font-size: 28px;
+    line-height: 60px;
+    color: #FFF;
+    margin-top: 16px;
+    float: right;
+    margin-right: 20px;
+    border-radius: 40px;
+    text-align: center;
+    font-weight: normal;
+}
+.com_top dl {
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    bottom: -90px;
+    z-index: 99999;
+}
+.com_top dl dt {
+    width: 100%;
+}
+.com_top dl dt img {
+    display: block;
+    width: 160px;
+    height: 160px;
+    margin-left: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    float: left;
+    background: url(../../assets/user.jpg) no-repeat;
+    background-size: 100%;
+}
+.com_top dl dt span {
+    display: block;
+    float: left;
+    text-indent: 20px;
+    font-size: 36px;
+    padding-top: 20px;
+    color: #FFF;
+}
+.com_top dl dd {
+    float: right;
+    font-size: 28px;
+    color: #fff;
+    text-align: right;
+    padding-right: 20px;
+    margin-left: -20px;
+}
+.uer_topnav {
+    width: 100%;
+    height: 120px;
+    background: #FFF;
+    border-bottom: 2px solid #dddcdc;
+}
+.uer_topnav ul {
+    width: 70%;
+    height: 80px;
+    /* padding-top: 20px; */
+    float: right;
+}
+.uer_topnav ul li {
+    width: 33%;
+    float: left;
+    line-height: 40px;
+    color: #666;
+    text-align: center;
+}
+.bain {
+    border-right: 2px solid #eeeeee;
+}
+.uer_topnav ul li a {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    font-size: 24px;
+    color: #000;
+}
+.uer_topnav ul li span {
+    display: block;
+    width: 100%;
+    height: 40px;
+    font-size: 32px;
+    line-height: 40px;
+    color: #666;
+}
+.Wallet {
+    width: 100%;
+    background: #FFF;
+    overflow: hidden;
+    border-bottom: 2px solid #dddcdc;
+    margin-top: 20px;
+    position: relative;
+}
+.Wallet ul {
+    width: 95%;
+    height: 80px;
+    margin: auto;
+    padding-top: 20px;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 10px;
+    padding-left: 0;
+}
+.Wallet ul li {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+.bain1 {
+    border-right: 2px solid #eeeeee;
+    margin-left: -2px;
+}
+.Wallet ul li strong {
+    display: block;
+    width: 100%;
+    font-size: 24px;
+    line-height: 150%;
+    color: #e41735;
+    text-indent: 6px;
+    font-weight: normal;
+}
+.Wallet ul li span {
+    display: block;
+    width: 100%;
+    font-size: 24px;
+    line-height: 150%;
+    color: #666;
+}
+.Wallet a {
+    margin-left: 20px;
+    height: 90px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 2px;
+}
+.Icon1 {
+    background-position: 0px 3px;
+}
+.Wallet a dl {
+    width: 100%;
+    margin: 0 0 0 70px;
+    overflow: hidden;
+}
+.Wallet a dl dt {
+    float: left;
+    font-size: 32px;
+    line-height: 90px;
+    color: #666;
+}
+.Wallet a dl dd {
+    font-size: 24px;
+    line-height: 90px;
+    color: #aaaaaa;
+}
+.Wallet a dl dd {
+    float: right;
+    background: url(../../assets/arrow_right.png) no-repeat right center;
+    color: #aaaaaa;
+    background-size: auto 24px;
+    margin-right: 120px;
+    padding-right: 40px;
+}
+.b {
+    border-bottom: 2px solid #eeeeee;
+}
+.Icon2 {
+    background-position: 0px -68px;
+}
+.Icon3 {
+    background-position: 0px -142px;
+}
+.Icon4 {
+    background-position: 0px -216px;
+}
+.Icon5 {
+    background-position: 0px -292px;
+}
+.Icon7 {
+    background-position: 0px -442px;
+}
+.Icon8 {
+    background-position: 0px -510px;
+}
+.Icon9 {
+    background-position: 0px -604px;
+}
+.Icon10 {
+    background-image: url(../../assets/user1.png);
+    background-repeat: no-repeat;
+    background-size: auto 820%;
+}
+.Icon10 {
+    background-position: 0px 6px;
+}
+
