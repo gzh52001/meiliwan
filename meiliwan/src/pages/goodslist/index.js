@@ -8,7 +8,7 @@ function Goodslist (props){
             id:1,
             price:"300.0",
             title:'散装薄壳盐焗核桃20斤/件',
-            path: '/Good'
+            path: '/detail/4490'
         }];
         const goto = (path)=>{
             console.log(props);

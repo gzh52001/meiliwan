@@ -159,7 +159,7 @@ class Home extends React.Component {
 
             {/* 导航 */}
             <Row className="entry-list">
-                <nav>
+                <div>
                     <ul>
                         <li>
                             <Link to={{ pathname: 'catalog.php' }}>
@@ -186,7 +186,7 @@ class Home extends React.Component {
                             </Link>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </Row>
             {/* 修饰 */}
             <Row className='floor_images'></Row>
