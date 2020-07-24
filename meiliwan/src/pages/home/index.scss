@@ -1,0 +1,445 @@
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+a,a:visited {
+    font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+}
+.page {
+    width: 100%;
+    overflow: hidden;
+    background: #F2F2F2;
+}
+#header {
+    background-color: #E71F19;
+    width: 100%;
+    height: 45px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+.logo{
+    display: block;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    height: 45px;
+    font-size: 18px;
+    line-height: 45px;
+}
+.top_bt, .user_btn, .show_cart {
+    background: url(../../images/home/pub_flow.png) no-repeat;
+    background-size: auto 160px;
+}
+.top_bt {
+    display: block;
+    float: left;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    background-position: 0 5;
+}
+.user_btn {
+    width: 45px;
+    height: 45px;
+    display: block;
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background-position: 0 -38px;
+}
+
+// 搜索框
+.index_search {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+}
+.index_search_mid {
+    width: 80%;
+    margin: auto;
+    height: 40px;
+    position: relative;
+}
+.index_search_mid span {
+    display: block;
+    border-left: 1px solid #ccc;
+    position: absolute;
+    width: 40px;
+    height: 36px;
+    right: 5px;
+}
+.index_search_mid span img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    margin-top: 4px;
+}
+.index_search_mid input {
+    display: block;
+    width: 99%;
+    height: 35px;
+    line-height: normal;
+    border: none;
+    -webkit-appearance: none;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    font-size: 14px;
+    color: #999;
+    text-indent: 10px;
+    border-radius: 5px;
+    margin: auto;
+    border: 1px solid #CCC;
+    background: none;
+    margin-top: 20px;
+}
+
+// 导航
+.entry-list {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 10px;
+    background: #FFF;
+    padding-bottom: 10px;
+    li {
+        vertical-align: middle;
+    }
+    a {
+        display: block;
+        width: 25%;
+        overflow: hidden;
+        float: left;
+        text-align: center;
+        margin-top: 5px;
+    }
+    img {
+        display: block;
+        width: 65%;
+        margin: auto;
+    }
+    span {
+        height: 30px;
+        line-height: 30px;
+        color: #616161;
+        font-family: "微软雅黑";
+        font-size: 14px;
+    }
+}
+
+// 修饰
+.floor_images {
+    width: 100%;
+    overflow: hidden;
+    background: #FFF;
+    border-top: 1px solid #eeeeee;
+    margin-top: 10px;
+}
+
+//    {/* 精品推荐 */}
+.index_floor {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+    background: #fff;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dcdcdc;
+}
+.scroll_hot {
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    overflow: hidden;
+}
+.floor_body1 {
+    width: 100%;
+    overflow: hidden;
+    h2 {
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        font-weight: normal;
+        color: #7f7f7f;
+        margin-bottom: 10px;
+    }
+    h2 em {
+        width: 3px;
+        height: 15px;
+        background: #E4010D;
+        margin-right: 5px;
+        margin-top: 10px;
+        float: left;
+    }
+}
+.geng {
+    width: 50px;
+    height: 25px;
+    float: right;
+    padding-top: 5px;
+    a {
+        display: block;
+        float: left;
+        width: 30px;
+        line-height: 25px;
+        height: 25px;
+        color: #7f7f7f;
+        font-size: 13px;
+    }
+    span {
+        display: block;
+        float: left;
+        width: 15px;
+        height: 25px;
+        background: url(../../images/home/pub_main.png) no-repeat;
+        background-size: auto 280px;
+        background-position: 0 -248px;
+    }
+}
+
+.tempWrap{
+    overflow: hidden;
+    position: relative;
+    // 商品开始轮播
+    .bd{
+        width: 1182px;
+        position: relative;
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+        transition-duration: 0ms;
+        transform: translate(0, 0px) translateZ(0px);
+        ul {
+            display: table-cell;
+            vertical-align: top;
+            width: 394px;
+            // width: 100%;
+            overflow: hidden;
+            margin: auto;
+            li {
+                width: 33.33%;
+                float: left;
+                overflow: hidden;
+                margin: 0px;
+                .index_pro {
+                    width: 95%;
+                    overflow: hidden;
+                    margin: auto;
+                    .products_kuang {
+                        width: 100%;
+                        margin: auto;
+                        overflow: hidden;
+                        position: relative;
+                        img {
+                            width: 100% !important;
+                            height: auto !important;
+                            margin: auto;
+                        }
+                    }
+                    // 商品描述
+                    .goods_name {
+                        font-size: 12px;
+                        width: 100%;
+                        margin: auto;
+                        color: #999;
+                        height: 29px;
+                        overflow: hidden;
+                        text-align: left;
+                        line-height: 16px;
+                        margin-top: 8px;
+                        margin-bottom: 8px;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        display: -webkit-box;
+                    }
+                    // 价格栏
+                    .price {
+                        width: 100%;
+                        margin: auto;
+                        position: relative;
+                        border-top: 1px solid #eeeeee;
+                        margin-top: 5px;
+                        .btns {
+                            position: absolute;
+                            display: block;
+                            right: 5px;
+                            height: 25px;
+                            width: 25px;
+                            background: #f23;
+                            border-radius: 50%;
+                            bottom: 8px;
+                            img {
+                                display: block;
+                                width: 25px;
+                                height: 25px;
+                            }
+                        }
+                        .price_pro {
+                            width: 100%;
+                            display: block;
+                            font-size: 14px;
+                            color: #F23015;
+                            height: 40px;
+                            line-height: 40px;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 小圆点
+.scroll_hot .hd {
+    height: 20px;
+    overflow: hidden;
+    text-align: center;
+    background: #FFF;
+    ul {
+        display: inline-block;
+        padding-top: 5px;
+    }
+    li {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: #C5C1C0;
+        margin: 0 4px;
+        vertical-align: top;
+        overflow: hidden;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        color:#C5C1C0;
+    }
+    .on {
+        background: #D6505B;
+        color: #D6505B;
+    }
+}
+
+
+// 精品推荐
+.floor_body2 {
+    width: 98%;
+    margin: auto;
+    overflow: hidden;
+    h2 {
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        font-weight: normal;
+        color: #999;
+        text-align: center;
+    }
+
+    // 商品
+    ul {
+        width: 50%;
+        float: left;
+        text-align: center;
+        overflow: hidden;
+        li {
+            width: 98%;
+            margin: auto;
+            margin-bottom: 5px;
+            background: #FFF;
+            overflow: hidden;
+            padding-bottom: 2%;
+            .index_pro {
+                width: 100%;
+                overflow: hidden;
+                margin: auto;
+            }
+            .price {
+                width: 100%;
+                margin: auto;
+                position: relative;
+                border-top: 1px solid #eeeeee;
+                .price_pro {
+                    width: 93%;
+                    margin: auto;
+                    display: block;
+                    font-size: 16px;
+                    color: #F23015;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: left;
+                }
+            }
+            .btns {
+                position: absolute;
+                display: block;
+                right: 5px;
+                height: 25px;
+                width: 25px;
+                background: #f23;
+                border-radius: 50%;
+                bottom: 8px;
+                img {
+                    display: block;
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+        .products_kuang {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            img {
+                display: block;
+                width: 100%;
+                margin: auto;
+            }
+        }
+        .goods_name {
+            width: 93%;
+            margin: auto;
+            text-align: left;
+            height: 33px;
+            overflow: hidden;
+            color: #666;
+            font-size: 14px;
+            line-height: 18px;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+// 尾部
+.gotop {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 70px;
+    right: 8px;
+    background-color: rgba(243,241,241,0.5);
+    border: 1px solid #CCC;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    img {
+        display: block;
+        width: 40px;
+        height: 40px;
+    }
+}

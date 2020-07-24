@@ -1,0 +1,41 @@
+{
+    "code": 200,
+    "list": [
+        {
+            "iCheck": true,
+            "isPromote": true,
+            "iGoodsId": "14336",
+            "iTotal": "1",
+            "iCurrPrice": 599.00,
+            "sMallName": "源计划 艾瑞莉娅 中型雕塑",
+            "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202006/20200611211952_44398.jpg"
+        },
+        {
+            "iCheck": true,
+           "isPromote": true,
+            "iGoodsId": "13243",
+            "iTotal": "2",
+            "iCurrPrice": 249.00,
+            "sMallName": "柯基库奇 毛绒",
+            "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202003/20200331135548_84130.jpg"
+        },
+        {
+            "iCheck": true,
+           "isPromote": true,
+            "iGoodsId": "12862",
+            "iTotal": "3",
+            "iCurrPrice": 419.00,
+            "sMallName": "NIKE X LPL 战队IG比赛男子球衣",
+            "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202001/20200113160828_34014.jpg"
+        },
+        {
+            "iCheck": false,
+           "isPromote": true,
+            "iGoodsId": "12805",
+            "iTotal": "5",
+            "iCurrPrice": 220.00,
+            "sMallName": "约德尔人迷你手办套装",
+            "sProfileImg": "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202001/20200102120303_37392.jpg"
+        }
+    ]
+}
