@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css'
 import {withUser} from '../../utils/hoc';
 import Footer from '../../components/footer'
+import Tabbar from "../../components/tabber/tab"
 class Mine extends React.Component{
     render(){
         return (
@@ -131,6 +132,7 @@ class Mine extends React.Component{
                     </div>
                 </div>
                 <Footer />
+                <Tabbar></Tabbar>
             </div>
         )
     }

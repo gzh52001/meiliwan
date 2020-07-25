@@ -2,13 +2,13 @@ import React from 'react';
 import './index.css';
 import {withRouter} from 'react-router-dom'
 import {withUser} from '../../utils/hoc';
-
+import Tabbar from "../../components/tabber/tab"
 function Goodslist (props){
         const menu = [{
             id:1,
             price:"300.0",
             title:'散装薄壳盐焗核桃20斤/件',
-            path: '/Good'
+            path: '/detail/4490'
         }];
         const goto = (path)=>{
             console.log(props);
@@ -88,6 +88,7 @@ function Goodslist (props){
                     </div>
                     <a className="gotop" style= {{z_index:"9999"}}><img /></a>
                 </div>
+                <Tabbar></Tabbar>
             </div>
         )
     }

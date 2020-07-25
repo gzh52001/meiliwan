@@ -7,6 +7,7 @@ import Life from '../../components/life';
 import Furniture from '../../components/furniture';
 import Tea from '../../components/tea';
 import Goodslist from '../goodslist'
+import Tabbar from "../../components/tabber/tab"
 function Sort(props){
         const menu = [{
             text: '休闲食品',
@@ -43,6 +44,7 @@ function Sort(props){
                   <Route path='/goodslist' component={Goodslist} />
                   <Redirect from='/sort' to='/sort/food' exact />
                 </Switch>
+                <Tabbar></Tabbar>
             </div>
         )
 };
